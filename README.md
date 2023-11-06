@@ -1,6 +1,6 @@
 # Using-the-dijkstra-algorithm-to-find-the-shortest-distance-to-one-area-to-another
 
-This was my Computer systems project (cs171), for 1st year.
+This was my Computer systems project (cs171), for 1st year using processing.
 
 Dijkstra's algorithm is used to find the shortest path between the two mentioned vertices of a graph. 
 For Example: Used to find the shortest between the destination to visit from your current location on a Google map.
