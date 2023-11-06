@@ -1,0 +1,469 @@
+
+Node a1, a2, a3, a4, a5, a6, a7 ,a8,a9,a10; //deaclared our variabkles if not declared it will show errors
+Edge e1, e2, e3, e4, e5, e6, e7, e8, e9, e10,e11,e12,e13,e14,e15,e16;
+ArrayList<Node> nodes = new ArrayList<Node>();
+ArrayList<Edge> edges=new ArrayList<Edge>();
+Dijkstra d;
+int one; 
+int two; 
+int stage;
+
+// this code was adapted from an example on https://openprocessing.org/sketch/99816#
+//i have made changes to the game and have commented where i have made the cgnages 
+
+void setup() {
+  one=-1;
+  two=-1;
+  
+  size(1100, 800); //changed the background 
+  background(#CEA6F2); //changes the colours
+  smooth();
+  a1=new Node(100, 40, 0); //The numbers reperesent the area fo each code, this codes created nodes and places them in a specific area u want 
+  a2=new Node(600, 60, 1); //changed the area for node
+  a3=new Node(300, 300, 2); //changed the placing for node
+  a4=new Node(40, 550, 3); //changed the placing for node
+  a5=new Node(50, 250, 4);//changed the placing for node
+  a6=new Node(400, 670, 5);//changed the placingfor node
+  a7=new Node(700, 550, 6);//changed the placing for node
+  a8=new Node(350,50,7); //added a  new node
+  a9=new Node(200,770,8); //added  a new node
+  a10=new Node(750,320,9);
+
+  
+  
+  
+  
+  e1=new Edge(a1, a2, 4); //this code adds lines connecting each node with another, the a1 represent the 1 node and a2 repreents the 2 nodes anc the number 4 is the the disntce between the nodes that r mentioned
+  e2=new Edge(a2, a3, 6);
+  e3=new Edge(a3, a4, 5);
+  e4=new Edge(a4, a5, 9);
+  e5=new Edge(a1, a5, 2);
+  e6=new Edge(a5, a2, 5);
+  e7=new Edge(a3, a5, 2); 
+  e8=new Edge(a4, a6, 5);
+  e9=new Edge(a3, a7, 2);
+  e10=new Edge(a6, a7, 1);
+  e11=new Edge(a2, a7, 3);
+  e12=new Edge(a8,a2 ,1); //created new lines for m new nodes i created  
+  e13=new Edge(a3,a9,8); //created a line
+  e14=new Edge(a9,a6,4); //created a line
+  e15=new Edge(a10,a2,5); //created a lines for the new nodes i created 
+  e16=new Edge(a10,a7,6);
+
+ 
+   
+  nodes.add(a1); //this codes adds each node to the sketch ,if u dont do this specific code it wont add anything 
+  nodes.add(a2);
+  nodes.add(a3);
+  nodes.add(a4);
+  nodes.add(a5);
+  nodes.add(a6);
+  nodes.add(a7);
+  nodes.add(a8);
+  nodes.add(a9);
+  nodes.add(a10);
+
+  
+  edges.add(e1); //this codes adds each the lines to the sketch ,if u dont do this specific code it wont add anything 
+  edges.add(e2);
+  edges.add(e3);
+  edges.add(e4);
+  edges.add(e5);
+  edges.add(e6);
+  edges.add(e7);
+  edges.add(e8);
+  edges.add(e9);
+  edges.add(e10);
+  edges.add(e11);
+  edges.add(e12); //added a edge
+  edges.add(e13); //added a edge
+  edges.add(e14); //added a edge
+  edges.add(e15);
+  edges.add(e16);
+
+}
+void keyPressed()
+{
+  
+ //this code tells us that the key 0,1,2,3 etc is pressed 
+ if((key=='0'||key=='1'||key=='2'||key=='3'||key=='4'||key=='5'||key=='6'||key=='7'||key=='8'||key=='9')&&stage==0) // added a key 
+ {
+   one=key-48;
+   //the else if allows us to press the key when asked the question "where do you want to go?"
+ }else if((key=='0'||key=='1'||key=='2'||key=='3'||key=='4'||key=='5'||key=='6'||key=='7'||key=='8'||key=='9')&&stage==1){
+  
+   two=key-48;
+ }
+ //if key c is pressed it starts the process again 
+ if(key=='c'){
+   stage=0;
+   one=-1;
+   two=-1;
+   d=new Dijkstra(nodes, edges, 0,6);
+
+   background(#CEA6F2); //changed the colours 
+    d.startOver();
+ }
+  
+}
+void draw() {
+ //i created a key to indicate what node is what key 
+   text("0|Home",950,80); //added all these places
+  text("1|Liffey Valley",950,110);
+  text("2|Centra",950,140);
+  text("3|Maynooth",950,170);
+  text("4|Perios",950,200);
+  text("5|Dundrum" ,950,230);
+  text("6|Park" ,950,260);
+  text("7|Bar" ,950 ,290);
+  text("8|Town",950,320);
+  text("9|Funfair",950,350);
+
+  
+  
+  if(stage==0&&one==-1){
+    textSize(30);
+    stroke(0);
+    text("Enter your location:", 750,650); //changed the wording and the placing of it
+    
+  text("Home",140,40); //added my new places to each node 
+  text("Liffey Valley",640,60);
+  text("Dundrum" ,450,670);
+  text("Centra" ,340, 300);
+  text("Park" ,750, 550);
+  text("Maynooth",70, 550);
+  text("Perios" ,90, 250);
+  text("Bar" ,390,50);
+  text("Town", 150,745);
+  text("Fun fair",700,300);
+  
+  //if key 0 and the stages++ increments to another key 
+  }else if(stage==0){
+    stage++;
+  }else if(stage==1&&two==-1){
+    background(#CEA6F2);
+    textSize(30);
+    stroke(0);
+    text("Where do you want to go?", 750,650); //chnaged the wording and the placing of it 
+    
+    text("Home",140,40); //added my new places to each node 
+  text("Liffey Valley",640,60);
+  text("Dundrum" ,450,670);
+  text("Centra" ,340, 300);
+  text("Park" ,750, 550);
+  text("Maynooth",70, 550);
+  text("Perios" ,90, 250);
+  text("Bar" ,390,50);
+  text("Town", 150,745);
+  text("Fun fair",700,300);
+  
+  text("0|Home",900,80);
+  text("1|Liffey Valley",900,110);
+  text("2|Centra",900,140);
+  text("3|Maynooth",900,170);
+  text("4|Perios",900,200);
+  text("5|Dundrum" ,900,230);
+  text("6|Park" ,900,260);
+  text("7|Bar" ,900 ,290);
+  text("8|Town",900,320);
+  text("9|Funfair",900,350);
+    
+    
+
+
+    
+  }else if(stage==1&one!=two){
+    stage++;
+    background(#CEA6F2);
+    d=new Dijkstra(nodes, edges, one,two);
+    d.dijkstra();
+    d.render();
+  }
+ 
+  for (Edge d: edges) {
+    d.render();
+  }
+  for (Node n : nodes) {
+    n.render();
+  }
+  
+
+
+}
+
+public class Node {
+  ArrayList<Edge> connectedEdges=new ArrayList<Edge>();
+  float x, y;
+  int s, distance; 
+  boolean checked;
+
+  public Node(float x, float y, int s) {
+    this.x=x;
+    this.y=y;
+    this.s=s; 
+    checked=false; 
+    distance=Integer.MAX_VALUE;
+  }
+
+  public void addEdge(Edge e) {
+    connectedEdges.add(e);
+  }
+  //return all the edges connected to this node
+  public ArrayList<Edge> getEdge() {
+    return connectedEdges;
+  }
+  // this function returns distance from the starting node to this node
+  public int getDistance() {
+    return distance;
+  }
+
+  //this fucntion-if the edge connected to this node and the previous node is checked, then set the final distance for this node.
+  public void setFinalDistance(int i) {
+    distance=i;
+  }
+
+  public void setDistance(Node previousNode) {
+    ///////////////////////
+    for (Edge e:connectedEdges) {
+      if (e.getNode().get(0).equals(previousNode)||e.getNode().get(1).equals(previousNode)) {
+        this.distance=previousNode.getDistance()+e.getWeight();
+      }
+    }
+  } 
+  // check if there's still unchecked edges that is connected to this node, if there are, then it is a checkable node.
+  public boolean checkableNode() {
+
+    for (Edge e:getEdge()) {
+      if (e.getCheck()==false) {
+        return true;
+      }
+    }
+    return false;
+  }
+  //get the shortest distanced node that is connected to this node
+  //also change the color of the edge between these two nodes.
+  public Node shortestDistanceNode(){
+    int shortestDistance=Integer.MAX_VALUE;
+    Node shortestNode=null;
+    for(Edge e:connectedEdges){
+      if(e.getPreviousNode(this).getDistance()<shortestDistance&&e.getPreviousNode(this).getDistance()==this.getDistance()-this.getConnectedEdge(e.getPreviousNode(this)).getWeight()){
+        shortestNode=e.getPreviousNode(this);
+      }
+    }
+    shortestNode.getConnectedEdge(this).edgeColor=true;
+    return shortestNode;
+  }
+  
+  //find the connected Edge of this node and another node n;
+  public Edge getConnectedEdge(Node n) {
+    Edge ed=null;
+    for (Edge e:connectedEdges) {
+      for (Node node:e.getNode()) {
+        if (node.equals(n)) ed=e;
+      }
+    }
+    return ed;
+  }
+  //this function returns all the nodes connected to this node;
+  public ArrayList<Node> destinationNodes() {
+    ArrayList<Node> destination=new ArrayList<Node>();
+    for (Edge e:getEdge()) {
+      destination.add(e.getPreviousNode(this));
+    }
+    return destination;
+  }
+  public void setCheck() {
+    checked=true;
+  }
+  public boolean getCheck() {
+    return checked;
+  }
+  public boolean shouldColor(){
+    for(Edge e:connectedEdges){
+      if(e.edgeColor==true){
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+  public void render() {
+    if (shouldColor()==true) {
+      fill(#E01D4E);
+      ellipse(x, y, 40, 40);
+      textSize(30);
+      fill(255);
+      text(""+s, x-9, y+10);
+      textSize(20);
+      fill(0);
+      text("Shortest Distance: "+distance ,x+40,y+25);
+    }
+    else {
+      fill(0, 255, 0);
+      ellipse(x, y, 40, 40);
+      textSize(30);
+      fill(0);
+      text(""+s, x-9, y+10);
+      
+    }
+  }
+}
+public class Edge {
+  ArrayList<Node> nodesInEdge;
+  Node a, b;
+  int weight;
+  PVector midPoint;
+  boolean checked; 
+  boolean edgeColor;
+  public Edge(Node a, Node b, int w) {
+    this.a=a; 
+    this.b=b;
+    this.weight=w;
+    midPoint=getMidpoint();
+    a.addEdge(this);
+    b.addEdge(this);
+    nodesInEdge=new ArrayList<Node>();
+    nodesInEdge.add(a); 
+    nodesInEdge.add(b);
+    checked=false;
+    edgeColor=false;
+  }
+  // return the weight of this edge
+  public int getWeight() {
+    return weight;
+  }
+  public PVector getMidpoint() {
+
+    return new PVector((a.x+b.x)/2, (a.y+b.y)/2);
+  }
+
+  //return the nodes in this edge
+  public ArrayList<Node> getNode() {
+    return nodesInEdge;
+  }
+  public void setCheck() {
+    checked=true;
+  }
+  public boolean getCheck() {
+    return checked;
+  }
+  // get the other node in this edge;
+  public Node getPreviousNode(Node n) {
+    if (nodesInEdge.get(0).equals(n)) {
+      return nodesInEdge.get(1);
+    }
+    else {
+      return nodesInEdge.get(0);
+    }
+  }
+
+  public void render() {
+
+    if (edgeColor==true) {
+      stroke(0);
+      line(a.x, a.y, b.x, b.y);
+      textSize(20);
+      text(""+weight, midPoint.x-20, midPoint.y+5);
+    }
+    else {
+      stroke(#2409DE);
+      line(a.x, a.y, b.x, b.y);
+      fill(255, 0, 0);
+      textSize(20);
+      text(""+weight, midPoint.x-20, midPoint.y+5);
+    }
+  }
+}
+
+public class Dijkstra {
+  ArrayList<Node> nodes;
+  ArrayList<Edge> edges;
+  ArrayList<Node> settledNodes=new ArrayList<Node>();
+  ArrayList<Node> unsettledNodes=new ArrayList<Node>();
+  Node start;
+  Node end;
+  int s,e;
+
+  public Dijkstra(ArrayList<Node> nodes, ArrayList<Edge> edges, int s, int e) {
+    this.nodes=nodes; 
+    this.edges=edges;
+    this.s=s;this.e=e;
+    start=nodes.get(s);
+    end=nodes.get(e);
+    start.setFinalDistance(0);
+    unsettledNodes.add(start);
+  }
+
+  public void render() {
+    for (Edge d: edges) {
+      d.render();
+    }
+    for (Node n : nodes) {
+      n.render();
+    }
+  }
+
+  public Node getNodeWithLowestDistance(ArrayList<Node> unsettledNodes) {
+    Node no=unsettledNodes.get(0);
+    for (Node n:unsettledNodes) {
+      if (n.getDistance()<n.getDistance()) {
+        return no=n;
+      }
+    }
+    return no;
+  }
+
+  public void evaluatedNeighbors(Node evaluationNode) {
+    for (Node d:evaluationNode.destinationNodes()) {
+      for (Node s:settledNodes) {
+        if (d!=s) {
+          int edgeDistance=(d.getConnectedEdge(evaluationNode)).getWeight();
+          int newDistance=edgeDistance+evaluationNode.getDistance();
+          if (d.getDistance()>newDistance) {
+            d.setFinalDistance(newDistance);
+            unsettledNodes.add(d);
+          }
+        }
+      }
+    }
+  }
+
+  public void dijkstra() {
+    while (unsettledNodes.size ()!=0) {
+      Node evaluationNode=getNodeWithLowestDistance(unsettledNodes);
+      for (int i=unsettledNodes.size()-1;i>=0;i--) {
+        if (unsettledNodes.get(i)==evaluationNode) unsettledNodes.remove(i);
+      }
+      settledNodes.add(evaluationNode);
+      evaluatedNeighbors(evaluationNode);
+    }
+    for(Node n: nodes){
+      if(n==start||n==end){
+        n.setCheck();
+      }
+    }
+    Node vertex=end.shortestDistanceNode();
+    traceBack(end,start);
+    
+  }
+  
+  public void startOver(){
+    for(Node n:nodes){
+      n.setFinalDistance(Integer.MAX_VALUE);
+    }
+    for(Edge e:edges){
+      e.edgeColor=false;
+    }
+  }
+  public void traceBack(Node end,Node start){
+    Node vertex=end;
+    while(vertex.getDistance()!=0){
+      vertex=vertex.shortestDistanceNode();
+    }
+  }
+  
+ 
+  
+    
+}
